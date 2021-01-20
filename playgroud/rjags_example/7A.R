@@ -15,11 +15,13 @@ summary(lfit4)
 library("rjags")
 
 mod_string = " model {
+    # likelihood
     for (i in 1:length(education)) {
         education[i] ~ dnorm(mu[i], prec)
         mu[i] = b0 + b[1]*income[i] + b[2]*young[i] + b[3]*urban[i]
     }
     
+    # prior
     b0 ~ dnorm(0.0, 1.0/1.0e6)
     for (i in 1:3) {
         b[i] ~ dnorm(0.0, 1.0/1.0e6)
